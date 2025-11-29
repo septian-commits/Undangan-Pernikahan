@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Undangan Pernikahan</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #086fe5;        
+      --primary-soft: #3d71ad;
+      --accent-light: #e2eaf5;    
+      --dark: #000000;          
+      --bg: #f4f7fb;            
+      --text-soft: #000000;  
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+  font-family: "Poppins", sans-serif;
+  color: var(--dark);
+  min-height: 100vh;
+  position: relative;
+  background: #000;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("sep3.jpeg") center center / cover no-repeat fixed;
+  filter: brightness(0.3); 
+  z-index: -2;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top, rgba(210, 210, 242, 0.291) 0, rgba(0,0,0,0.6) 80%);
+  z-index: -1;
+}
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade {
+      opacity: 0;
+      animation: fadeUp 0.7s ease-out forwards;
+    }
+
+    .delay-1 { animation-delay: 0.15s; }
+    .delay-2 { animation-delay: 0.3s; }
+    .delay-3 { animation-delay: 0.45s; }
+    .delay-4 { animation-delay: 0.6s; }
+
+    .nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(to bottom, rgba(244,247,251, 0.95), rgb(175, 196, 223));
+      border-bottom: 1px solid rgba(125,160,200, 0.25);
+      z-index: 50;
+    }
+
+    .nav-inner {
+      max-width: 1024px;
+      margin: auto;
+      padding: 10px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-family: "Playfair Display", serif;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 10px;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-menu a {
+      padding: 6px 10px;
+      border-radius: 999px;
+      transition: background 0.2s;
+    }
+
+    .nav-menu a:hover {
+      background: rgba(125,160,200, 0.12);
+    }
+
+    section { padding: 80px 18px; }
+    @media (min-width: 768px) {
+      section { padding: 110px 18px; }
+    }
+    .container { max-width: 1024px; margin: auto; }
+
+    .section-title {
+      font-family: "Playfair Display", serif;
+      font-size: 1.6rem;
+      text-align: center;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+    }
+
+    .divider {
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--primary), transparent);
+      margin: 12px auto 18px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--accent-light);
+      max-width: 540px;
+      margin: 0 auto 10px;
+      font-size: 0.9rem;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      padding-top: 90px;
+    }
+
+    .hero-inner {
+      background: rgba(255,255,255,0.96);
+      padding: 40px 24px 34px;
+      border-radius: 24px;
+      box-shadow: 0 16px 44px rgba(213, 225, 239, 0.25);
+      max-width: 720px;
+      margin: auto;
+    }
+
+    .hero-badge {
+      letter-spacing: 0.2em;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      text-transform: uppercase;
+    }
+
+    .hero-names {
+      font-family: "Playfair Display";
+      font-size: clamp(2.3rem, 4vw, 3rem);
+      color: var(--dark);
+      margin: 14px 0 6px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero-date {
+      font-size: 0.9rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+    }
+
+    .hero-quote {
+      margin-top: 18px;
+      font-size: 0.9rem;
+      color: var(--text-soft);
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.7;
+    }
+
+    .hero-buttons {
+      margin-top: 24px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), #5e84b3);
+      padding: 12px 24px;
+      color: white;
+      border-radius: 999px;
+      border: none;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      cursor: pointer;
+      box-shadow: 0 10px 26px rgba(94,132,179,0.35);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 32px rgba(94,132,179,0.4);
+    }
+
+    .btn-outline {
+      border: 1px solid var(--primary);
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--primary);
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.18s ease, color 0.18s ease;
+    }
+
+    .btn-outline:hover {
+      background: var(--primary-soft);
+      color: #fff;
+    }
+
+    .couple-grid, .event-grid, .gift-grid {
+      display: grid;
+      gap: 18px;
+      margin-top: 16px;
+    }
+
+    @media (min-width: 640px) {
+      .couple-grid, .event-grid, .gift-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .person-card, .event-card, .gift-card {
+      background: var(--accent-light);
+      border-radius: 18px;
+      padding: 20px 18px;
+      box-shadow: 0 8px 24px rgba(125,160,200,0.18);
+    }
+
+    .person-card h3,
+    .event-card h3,
+    .gift-card h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 1.2rem;
+      margin-bottom: 6px;
+      color: var(--dark);
+    }
+
+    .person-card p,
+    .event-card p,
+    .gift-card p {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+      line-height: 1.6;
+    }
+
+    .story {
+      max-width: 720px;
+      margin: 0 auto;
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: var(--accent-light);
+      text-align: center;
+    }
+
+    .story strong {
+      font-family: "Playfair Display", serif;
+      color: var(--accent-light);
+    }
+
+    .gallery-grid {
+      display: grid;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    @media (min-width: 640px) {
+      .gallery-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .gallery-item {
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(125,160,200,0.18);
+      background: var(--accent-light);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .countdown-wrapper {
+      margin-top: 24px;
+      text-align: center;
+    }
+
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .countdown-item {
+      min-width: 70px;
+      padding: 10px 8px;
+      border-radius: 12px;
+      background: rgba(226,234,245,0.9);
+      box-shadow: 0 8px 24px rgba(125,160,200,0.18);
+    }
+
+    .countdown-number {
+      font-family: "Playfair Display", serif;
+      font-size: 1.4rem;
+      color: var(--dark);
+    }
+
+    .countdown-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-soft);
+      margin-top: 2px;
+    }
+
+    .countdown-footer {
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: var(--accent-light);
+    }
+
+    .map-box {
+      margin-top: 18px;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(125,160,200,0.25);
+      background: #fff;
+    }
+
+    .map-box iframe {
+      width: 100%;
+      height: 320px;
+      border: 0;
+      display: block;
+    }
+
+    .wish-box, .rsvp-box {
+      max-width: 600px;
+      margin: 18px auto 0;
+      padding: 20px 18px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #f4f7fb, #e2eaf5);
+      box-shadow: 0 10px 30px rgba(125,160,200,0.23);
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      margin-bottom: 4px;
+      color: var(--dark);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(125,160,200,0.6);
+      padding: 8px 10px;
+      font-family: inherit;
+      font-size: 0.88rem;
+      outline: none;
+      resize: vertical;
+      background: #fff;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 1px rgba(125,160,200,0.3);
+    }
+
+    .wish-note {
+      margin-top: 10px;
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      text-align: center;
+    }
+
+    .list-wrapper {
+      margin-top: 16px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .list-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--accent-light);
+    }
+
+    .list-empty {
+      font-size: 0.8rem;
+      color: var(--accent-light);
+      font-style: italic;
+    }
+
+    .wish-item,
+    .rsvp-item {
+      background: rgba(255,255,255,0.9);
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      border: 1px solid rgba(125,160,200,0.3);
+      font-size: 0.85rem;
+    }
+
+    .wish-item strong,
+    .rsvp-item strong {
+      color: var(--dark);
+    }
+
+    .rsvp-meta {
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      margin-top: 2px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 28px 18px 40px;
+      font-size: 0.86rem;
+      color: var(--accent-light);
+    }
+
+    .footer-names {
+      margin-top: 8px;
+      font-family: "Playfair Display", serif;
+      font-size: 1.1rem;
+      color: var(--accent-light);
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav fade delay-1">
+    <div class="nav-inner">
+      <div class="nav-logo">Septian dan Husna</div>
+      <div class="nav-menu">
+        <a href="#home">Home</a>
+        <a href="#couple">Mempelai</a>
+        <a href="#event">Acara</a>
+        <a href="#location">Lokasi</a>
+        <a href="#gallery">Galeri</a>
+        <a href="#gift">Hadiah</a>
+        <a href="#wish">Ucapan</a>
+        <a href="#rsvp">RSVP</a>
+      </div>
+    </div>
+  </nav>
+
+  <section id="home" class="hero">
+    <div class="container">
+      <div class="hero-inner fade delay-1">
+        <div class="hero-badge">The Wedding Of</div>
+        <h1 class="hero-names">Septian &amp; Husna</h1>
+        <div class="divider"></div>
+        <div class="hero-date">Jum'at, 23 Maret 2029 — Karawang</div>
+        <p class="hero-quote">
+          "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan
+          pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung
+          dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa
+          kasih dan sayang." (QS. Ar-Rum: 21)
+
+      </div>
+    </div>
+  </section>
+
+  <section id="couple">
+    <div class="container fade delay-2">
+      <h2 class="section-title">Mempelai</h2>
+      <div class="divider"></div>
+      <p class="section-subtitle">
+        Dengan segala kerendahan hati, kami mempersembahkan undangan ini
+        sebagai awal perjalanan baru kami.
+      </p>
+
+      <div class="couple-grid">
+        <div class="person-card fade delay-2">
+          <h3>Septian Dwi Putra</h3>
+          <p>Putra dari Bapak Fulan dan Ibu Fulanah</p>
+        </div>
+        <div class="person-card fade delay-3">
+          <h3>Siti Malihatul Husna</h3>
+          <p>Putri dari Bapak Fulan dan Ibu Fulanah</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="event">
+    <div class="container fade delay-2">
+      <h2 class="section-title">Detail Acara</h2>
+      <div class="divider"></div>
+      <p class="section-subtitle">
+        Kami berharap kehadiran Bapak/Ibu/Saudara/i dapat menjadi doa dan restu atas pernikahan kami.
+      </p>
+
+      <div class="event-grid">
+        <div class="event-card fade delay-2">
+          <h3>Akad Nikah</h3>
+          <p>
+            Jum'at, 23 Maret 2029<br>
+            Pukul 09.00 – 11.00 WIB<br><br>
+            Resinda Hotel Karawang<br>
+            Jl. Resinda Raya No. 1, Purwadana, Telukjambe Timur, Karawang
+          </p>
+        </div>
+        <div class="event-card fade delay-3">
+          <h3>Resepsi</h3>
+          <p>
+            Jum'at, 23 Maret 2029<br>
+            Pukul 13.00 – 17.00 WIB<br><br>
+            Resinda Hotel Karawang<br>
+            Jl. Resinda Raya No. 1, Purwadana, Telukjambe Timur, Karawang
+          </p>
+        </div>
+      </div>
+
+      <div class="countdown-wrapper fade delay-3">
+        <p class="section-subtitle" style="margin-bottom: 6px;">
+          Menuju hari bahagia:
+        </p>
+        <div class="countdown">
+          <div class="countdown-item">
+            <div id="cd-days" class="countdown-number">00</div>
+            <div class="countdown-label">Hari</div>
+          </div>
+          <div class="countdown-item">
+            <div id="cd-hours" class="countdown-number">00</div>
+            <div class="countdown-label">Jam</div>
+          </div>
+          <div class="countdown-item">
+            <div id="cd-minutes" class="countdown-number">00</div>
+            <div class="countdown-label">Menit</div>
+          </div>
+          <div class="countdown-item">
+            <div id="cd-seconds" class="countdown-number">00</div>
+            <div class="countdown-label">Detik</div>
+          </div>
+        </div>
+        <p id="cd-label" class="countdown-footer">
+          Insya Allah akad akan dilaksanakan pada 23 Maret 2029, pukul 09.00 WIB.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="location">
+    <div class="container fade delay-2">
+      <h2 class="section-title">Lokasi Acara</h2>
+      <div class="divider"></div>
+      <p class="section-subtitle">
+        Berikut lokasi resepsi dan akad nikah. Silakan gunakan peta di bawah untuk panduan perjalanan.
+      </p>
+      <div class="map-box">
+    
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.4344277043223!2d107.293!3d-6.591!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e694f2d4fbd2d6f%3A0x4e4d5b9cae000000!2sResinda%20Hotel%20Karawang!5e0!3m2!1sid!2sid!4v0000000000000"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+      <p class="section-subtitle" style="margin-top: 12px; font-size: 0.8rem;">
+        Hati-hati di jalan, semoga selamat sampai tujuan.
+      </p>
+    </div>
+  </section>
+
+  <section id="story">
+    <div class="container fade delay-2">
+      <h2 class="section-title">Cerita Kami</h2>
+      <div class="divider"></div>
+      <div class="story">
+        <p>
+          <strong>Septian dan Husna</strong> dipertemukan dalam sebuah
+          pertemuan sederhana yang kemudian tumbuh menjadi percakapan panjang,
+          doa, dan harapan yang sama. Dengan izin Allah SWT, langkah-langkah
+          kecil itu akhirnya mengantarkan kami pada keputusan besar untuk
+          membangun rumah tangga bersama. Kami percaya, setiap pertemuan bukan
+          sekadar kebetulan, melainkan bagian dari skenario terbaik yang telah
+          Allah tuliskan.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <div class="container fade delay-2">
+      <h2 class="section-title">Galeri</h2>
+      <div class="divider"></div>
+      <p class="section-subtitle">
+        Beberapa momen spesial dalam perjalanan kami.
+      </p>
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="sep5.jpeg" alt="Foto Prewedding 1">
+        </div>
+        <div class="gallery-item">
+          <img src="sep4.jpeg" alt="Foto Prewedding 2">
+        </div>
+        <div class="gallery-item">
+          <img src="sep6.jpeg" alt="Foto Prewedding 3">
+        </div>
+        <div class="gallery-item">
+          <img src="sep10.jpeg" alt="Foto Prewedding 4">
+        </div>
+        <div class="gallery-item">
+          <img src="sep8.jpeg" alt="Foto Prewedding 5">
+        </div>
+        <div class="gallery-item">
+          <img src="sep9.jpeg" alt="Foto Prewedding 6">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gift">
+    <div class="container fade delay-2">
+      <h2 class="section-title">Hadiah Pernikahan</h2>
+      <div class="divider"></div>
+      <p class="section-subtitle">
+        Tanpa mengurangi rasa hormat, bagi Bapak/Ibu/Saudara/i yang ingin
+        mengirimkan hadiah secara non-tunai, dapat melalui rekening berikut:
+      </p>
+
+      <div class="gift-grid">
+        <div class="gift-card fade delay-2">
+          <h3>Transfer Bank</h3>
+          <p>
+            <strong>Bank BSI</strong><br>
+            No. Rekening: <span class="gift-account">1234567890</span><br>
+            a.n. Septian Dwi Putra
+          </p>
+          <button class="btn-outline" type="button" data-account="1234567890">Salin No. Rekening</button>
+        </div>
+        <div class="gift-card fade delay-3">
+          <h3>E-Wallet</h3>
+          <p>
+            <strong>DANA / OVO / GoPay</strong><br>
+            No: <span class="gift-account">081234567890</span><br>
+            a.n. Siti Malihatul Husna
+          </p>
+          <button class="btn-outline" type="button" data-account="081234567890">Salin Nomor</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="wish">
+    <div class="container fade delay-2">
+      <h2 class="section-title">Ucapan &amp; Doa</h2>
+      <div class="divider"></div>
+      <p class="section-subtitle">
+        Silakan sampaikan ucapan dan doa terbaik untuk kami melalui form berikut.
+      </p>
+
+      <div class="wish-box">
+        <form id="wish-form">
+          <div class="form-group">
+            <label for="wish-name">Nama</label>
+            <input type="text" id="wish-name" placeholder="Tulis nama Anda">
+          </div>
+          <div class="form-group">
+            <label for="wish-message">Ucapan</label>
+            <textarea id="wish-message" rows="3" placeholder="Tulis ucapan dan doa terbaik..."></textarea>
+          </div>
+          <button type="submit" class="btn-primary" style="margin-top: 8px;">Kirim Ucapan</button>
+        </form>
+        <p class="wish-note">
+          Ucapan yang Anda kirim akan langsung tampil di halaman ini (tidak dikirim ke WhatsApp).
+        </p>
+      </div>
+
+      <div class="list-wrapper">
+        <div class="list-title">Daftar Ucapan</div>
+        <div id="wish-list" class="list-empty">Belum ada ucapan. Jadilah yang pertama mengirim doa terbaik.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="rsvp">
+    <div class="container fade delay-2">
+      <h2 class="section-title">RSVP</h2>
+      <div class="divider"></div>
+
+      <p class="section-subtitle">
+        Mohon konfirmasi kehadiran Anda melalui form di bawah ini.
+      </p>
+
+      <div class="rsvp-box">
+        <form id="rsvp-form">
+          <div class="form-group">
+            <label for="rsvp-name">Nama</label>
+            <input type="text" id="rsvp-name" placeholder="Tulis nama lengkap Anda" required>
+          </div>
+          <div class="form-group">
+            <label for="rsvp-guests">Jumlah Tamu</label>
+            <input type="number" id="rsvp-guests" min="1" value="1" required>
+          </div>
+          <div class="form-group">
+            <label for="rsvp-status">Kehadiran</label>
+            <select id="rsvp-status" required>
+              <option value="">Pilih status...</option>
+              <option value="Hadir">Hadir</option>
+              <option value="Belum Pasti">Belum Pasti</option>
+              <option value="Berhalangan">Berhalangan</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="rsvp-message">Catatan (opsional)</label>
+            <textarea id="rsvp-message" rows="2" placeholder="Tulis catatan singkat (jika ada)..."></textarea>
+          </div>
+          <button type="submit" class="btn-primary" style="margin-top: 8px;">Kirim Konfirmasi</button>
+        </form>
+        <p class="wish-note">
+          Data ini hanya tampil di halaman ini (tidak dikirim ke WhatsApp / email).
+        </p>
+      </div>
+
+      <div class="list-wrapper">
+        <div class="list-title">Daftar Konfirmasi Kehadiran</div>
+        <div id="rsvp-list" class="list-empty">Belum ada konfirmasi yang masuk.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="fade delay-3">
+    <div>Wassalāmu‘alaikum warahmatullāhi wabarakātuh</div>
+    <div class="footer-names">Septian dan Husna</div>
+    <div>beserta keluarga besar</div>
+  </footer>
+
+  <audio id="music" loop>
+    <source src="mp31.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const playMusicButton = document.getElementById("playMusic");
+    const music = document.getElementById("music");
+    let musicStarted = false;
+
+    function startMusic() {
+      if (musicStarted || !music) return;
+      music.play().then(function () {
+        musicStarted = true;
+        if (playMusicButton) {
+          playMusicButton.textContent = "Musik Menyala";
+          playMusicButton.disabled = true;
+        }
+        document.removeEventListener("click", startMusic);
+        document.removeEventListener("scroll", startMusic);
+        document.removeEventListener("keydown", startMusic);
+      }).catch(function (err) {
+        console.log("Gagal memutar musik:", err);
+      });
+    }
+
+    if (playMusicButton) {
+      playMusicButton.addEventListener("click", startMusic);
+    }
+    document.addEventListener("click", startMusic);
+    document.addEventListener("scroll", startMusic);
+    document.addEventListener("keydown", startMusic);
+
+    const cdDays = document.getElementById("cd-days");
+    const cdHours = document.getElementById("cd-hours");
+    const cdMinutes = document.getElementById("cd-minutes");
+    const cdSeconds = document.getElementById("cd-seconds");
+    const cdLabel = document.getElementById("cd-label");
+
+    const targetDate = new Date("2029-03-23T09:00:00+07:00");
+
+    function updateCountdown() {
+      if (!cdDays || !cdHours || !cdMinutes || !cdSeconds) return;
+
+      const now = new Date();
+      const distance = targetDate.getTime() - now.getTime();
+
+      if (distance <= 0) {
+        cdDays.textContent = "00";
+        cdHours.textContent = "00";
+        cdMinutes.textContent = "00";
+        cdSeconds.textContent = "00";
+        if (cdLabel) {
+          cdLabel.textContent = "Acara akad telah berlangsung. Terima kasih atas doa dan kehadiran Anda.";
+        }
+        clearInterval(countdownTimer);
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((distance / (1000 * 60)) % 60);
+      const seconds = Math.floor((distance / 1000) % 60);
+
+      cdDays.textContent = String(days).padStart(2, "0");
+      cdHours.textContent = String(hours).padStart(2, "0");
+      cdMinutes.textContent = String(minutes).padStart(2, "0");
+      cdSeconds.textContent = String(seconds).padStart(2, "0");
+    }
+
+    const countdownTimer = setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    const copyButtons = document.querySelectorAll("[data-account]");
+    copyButtons.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        const acc = btn.getAttribute("data-account");
+        if (!acc) return;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(acc).then(function () {
+            const originalText = btn.textContent;
+            btn.textContent = "Disalin";
+            btn.disabled = true;
+            setTimeout(function () {
+              btn.textContent = originalText;
+              btn.disabled = false;
+            }, 1300);
+          }).catch(function () {
+            alert("Nomor: " + acc);
+          });
+        } else {
+          alert("Nomor: " + acc);
+        }
+      });
+    });
+
+    const wishForm = document.getElementById("wish-form");
+    const wishList = document.getElementById("wish-list");
+
+    function addWishToList(name, message) {
+      if (!wishList) return;
+
+      if (wishList.classList.contains("list-empty")) {
+        wishList.classList.remove("list-empty");
+        wishList.textContent = "";
+      }
+
+      const item = document.createElement("div");
+      item.className = "wish-item";
+      item.innerHTML = "<strong>" + (name || "Tamu") + "</strong><br>" +
+                       (message ? message.replace(/\n/g, "<br>") : "");
+      wishList.prepend(item);
+    }
+
+    if (wishForm) {
+      wishForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const nameInput = document.getElementById("wish-name");
+        const messageInput = document.getElementById("wish-message");
+
+        const name = nameInput ? nameInput.value.trim() : "";
+        const message = messageInput ? messageInput.value.trim() : "";
+
+        if (!message) {
+          alert("Ucapan tidak boleh kosong.");
+          return;
+        }
+
+        addWishToList(name, message);
+
+        if (nameInput) nameInput.value = "";
+        if (messageInput) messageInput.value = "";
+      });
+    }
+
+    const rsvpForm = document.getElementById("rsvp-form");
+    const rsvpList = document.getElementById("rsvp-list");
+
+    function addRsvpToList(name, guests, status, note) {
+      if (!rsvpList) return;
+
+      if (rsvpList.classList.contains("list-empty")) {
+        rsvpList.classList.remove("list-empty");
+        rsvpList.textContent = "";
+      }
+
+      const item = document.createElement("div");
+      item.className = "rsvp-item";
+      item.innerHTML =
+        "<strong>" + name + "</strong> (" + status + ", " + guests + " orang)" +
+        (note ? '<div class="rsvp-meta">Catatan: ' + note.replace(/\n/g, "<br>") + "</div>" : "");
+      rsvpList.prepend(item);
+    }
+
+    if (rsvpForm) {
+      rsvpForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const nameInput = document.getElementById("rsvp-name");
+        const guestsInput = document.getElementById("rsvp-guests");
+        const statusSelect = document.getElementById("rsvp-status");
+        const noteInput = document.getElementById("rsvp-message");
+
+        const name = nameInput ? nameInput.value.trim() : "";
+        const guests = guestsInput ? parseInt(guestsInput.value, 10) || 0 : 0;
+        const status = statusSelect ? statusSelect.value : "";
+        const note = noteInput ? noteInput.value.trim() : "";
+
+        if (!name || !status || !guests) {
+          alert("Nama, jumlah tamu, dan status kehadiran wajib diisi.");
+          return;
+        }
+
+        addRsvpToList(name, guests, status, note);
+
+        if (nameInput) nameInput.value = "";
+        if (guestsInput) guestsInput.value = "1";
+        if (statusSelect) statusSelect.value = "";
+        if (noteInput) noteInput.value = "";
+      });
+    }
+  </script>
+
+</body>
+</html>
